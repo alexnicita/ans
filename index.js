@@ -146,6 +146,19 @@ const browser = (function() {
 ///////////////////////////////////////////////////////////////////////////////
 
 const load = () => {
+  // Create hidden input element
+  const hiddenInput = document.createElement('input');
+  hiddenInput.style.position = 'absolute';
+  hiddenInput.style.opacity = '0';
+  hiddenInput.style.height = '0';
+  hiddenInput.style.width = '0';
+  document.body.appendChild(hiddenInput);
+
+  // Add click event listener to document
+  document.addEventListener('click', () => {
+    hiddenInput.focus();
+  });
+
   const t = terminal({
     prompt: () => `$ ${browser.cwd()} > `,
     banner,
@@ -162,7 +175,6 @@ const load = () => {
           openContact(key);
           return `Opening ${key} - ${contactInfo[key]}`;
         }
-
         return contactText;
       }
     }
