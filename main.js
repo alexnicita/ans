@@ -382,6 +382,7 @@ const keyboard = parse => {
   return {
     keypress: ev => {
       if (key(ev) === 'enter') {
+        input.push('\n'); // Add newline to input first
         const str = input.join('').trim();
         parse(str);
         input = [];
