@@ -382,6 +382,7 @@ const keyboard = parse => {
   return {
     keypress: ev => {
       if (key(ev) === 'enter') {
+        input.push('\n'); // Add newline to input first
         const str = input.join('').trim();
         parse(str);
         input = [];
@@ -426,7 +427,9 @@ const terminal = opts => {
     if (center) {
       lines = lines.map(line => line.length > 0 ? line.padStart(line.length + (cwidth / 2 - line.length / 2), ' ') : line);
     }
-    const append = lines.join('\n') + '\n' + prompt();
+
+    // Ensure proper spacing with explicit newlines
+    const append = '\n' + lines.join('\n') + '\n' + prompt();
     buffer = buffer.concat(append.split(''));
   };
   const print = printer($element, buflen);
