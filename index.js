@@ -12,6 +12,8 @@ const banner = `
 
 Technology Consulting
 
+contact@ans.consulting
+
 
 
 `;
