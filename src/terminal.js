@@ -153,7 +153,8 @@ export const terminal = (opts) => {
         : line);
     }
 
-    const append = lines.join('\n') + '\n' + prompt();
+    // Ensure proper spacing with explicit newlines
+    const append = '\n' + lines.join('\n') + '\n' + prompt();
     buffer = buffer.concat(append.split(''));
   };
 
