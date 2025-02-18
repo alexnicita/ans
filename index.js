@@ -1,57 +1,16 @@
-/*!
- * AnderShell - Just a small CSS demo
- *
- * Copyright (c) 2011-2018, Anders Evenrud <andersevenrud@gmail.com>
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
 import './src/styles.scss';
 import {terminal} from './src/terminal.js';
 
 // Banner text
 const banner = `
-Initializing AnderShell 3000 v0.1
-Copyright (c) 2014 Anders Evenrud <andersevenrud@gmail.com>
 
-.............................................................................
+ :::====  :::= === :::=== 
+ :::  === :::===== :::    
+ ======== ========  ===== 
+ ===  === === ====     ===
+ ===  === ===  === ====== 
 
-@@@  @@@  @@@  @@@@@@@@  @@@        @@@@@@@   @@@@@@   @@@@@@@@@@   @@@@@@@@
-@@@  @@@  @@@  @@@@@@@@  @@@       @@@@@@@@  @@@@@@@@  @@@@@@@@@@@  @@@@@@@@
-@@!  @@!  @@!  @@!       @@!       !@@       @@!  @@@  @@! @@! @@!  @@!     
-!@!  !@!  !@!  !@!       !@!       !@!       !@!  @!@  !@! !@! !@!  !@!     
-@!!  !!@  @!@  @!!!:!    @!!       !@!       @!@  !@!  @!! !!@ @!@  @!!!:!  
-!@!  !!!  !@!  !!!!!:    !!!       !!!       !@!  !!!  !@!   ! !@!  !!!!!:  
-!!:  !!:  !!:  !!:       !!:       :!!       !!:  !!!  !!:     !!:  !!:     
-:!:  :!:  :!:  :!:        :!:      :!:       :!:  !:!  :!:     :!:  :!:     
- :::: :: :::    :: ::::   :: ::::   ::: :::  ::::: ::  :::     ::    :: ::::
-  :: :  : :    : :: ::   : :: : :   :: :: :   : :  :    :      :    : :: :: 
-
------------------------------------------------------------------------------
-All graphics are created using CSS, no static files or images
------------------------------------------------------------------------------
-
-
-
-Type 'help for a list of available commands.
+Technology Consulting
 
 
 
@@ -62,20 +21,18 @@ const helpText = `
 Available commands:
 
 help - This output
-contact - Prints contact information
-contact <key> - Opens up relevant contact link
-clear - Clears the display
 ls - Lists files
-pwd - Lists current directory
-cd <dir> - Enters directory
 cat <filename> - Lists file contents
+cd <dir> - Enters directory
+contact - Prints contact information
+contact <key> - Open contact link
+clear - Clears the display
 `;
 
 // Contact texts
 const contactInfo = {
-  email: 'andersevenrud@gmail.com',
-  twitter: 'https://twitter.com/andersevenrud',
-  github: 'https://github.com/andersevenrud'
+  email: 'contact@alexnicita.com',
+  twitter: 'https://twitter.com/NicitaAlex',
 };
 
 const contactList = Object.keys(contactInfo)
@@ -83,7 +40,6 @@ const contactList = Object.keys(contactInfo)
   .join('\n');
 
 const contactText = `
-Created by Anders Evenrud
 
 ${contactList}
 
@@ -98,15 +54,32 @@ const openContact = key => window.open(key === 'email'
 const browser = (function() {
   let current = '/';
 
-  let tree = [{
+  let tree = [
+  // {
+  //   location: '/',
+  //   filename: 'documents',
+  //   type: 'directory'
+  // },
+  // {
+  //   location: '/',
+  //   filename: 'AUTHOR',
+  //   type: 'file',
+  //   content: 'Alex Nicita <contact@alexnicita.com>'
+  // }, 
+  {
     location: '/',
-    filename: 'documents',
-    type: 'directory'
-  }, {
-    location: '/',
-    filename: 'AUTHOR',
+    filename: 'CLIENTS',
     type: 'file',
-    content: 'Anders Evenrud <andersevenrud@gmail.com>'
+    content: `
+    
+    Select clients include:
+
+    Anchorage - anchorage.com
+    Polymarket - polymarket.com
+    Profound - tryprofound.com
+    Scimitar - scimitarfinance.com
+    NFG - networkforgooddaf.org
+    `
   }];
 
   const fix = str => str.trim().replace(/\/+/g, '/') || '/';
@@ -142,7 +115,7 @@ const browser = (function() {
     const maxlen = Math.max(...found.map(iter => iter.filename).map(n => n.length));
 
     const list = found.map(iter => {
-      return `${iter.filename.padEnd(maxlen + 1, ' ')} <${iter.type}>`;
+      return `${iter.filename.padEnd(maxlen + 1, ' ')}`;
     }).join('\n');
 
     return `${list}\n\n${status} in ${current}`;
@@ -161,6 +134,7 @@ const browser = (function() {
 
   return {
     cwd: () => setCurrent(),
+    pwd: () => setCurrent(),
     cd: dir => setCurrent(fix(dir)),
     cat,
     ls
@@ -178,6 +152,7 @@ const load = () => {
     commands: {
       help: () => helpText,
       cwd: () => browser.cwd(),
+      pwd: () => browser.cwd(),
       cd: dir => browser.cd(dir),
       ls: () => browser.ls(),
       cat: file => browser.cat(file),
