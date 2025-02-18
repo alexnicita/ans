@@ -118,7 +118,7 @@ Technology Consulting
 
 // Help text
 const helpText = `
-Available commands:
+
 
 help - This output
 ls - Lists files
