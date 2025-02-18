@@ -17,10 +17,7 @@ Technology Consulting
 `;
 
 // Help text
-const helpText = `
-
-
-help - This output
+const helpText = `help - This output
 ls - Lists files
 cat <filename> - Lists file contents
 cd <dir> - Enters directory
