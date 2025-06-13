@@ -19,7 +19,11 @@ contact@ans.consulting
 `;
 
 // Help text
-const helpText = `help - This output
+const helpText = `
+
+
+
+help - This output
 ls - Lists files
 cat <filename> - Lists file contents
 cd <dir> - Enters directory
@@ -73,6 +77,7 @@ const browser = (function() {
     
     Select clients include:
 
+    Whop - whop.com
     Anchorage - anchorage.com
     Polymarket - polymarket.com
     Profound - tryprofound.com
