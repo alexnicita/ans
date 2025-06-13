@@ -1,274 +1,16 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ "./index.js":
-/*!******************!*\
-  !*** ./index.js ***!
-  \******************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _src_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/styles.scss */ "./src/styles.scss");
-/* harmony import */ var _src_styles_scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_styles_scss__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _src_terminal_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/terminal.js */ "./src/terminal.js");
-
-
-
-// Banner text
-const banner = `
-
- :::====  :::= === :::=== 
- :::  === :::===== :::    
- ======== ========  ===== 
- ===  === === ====     ===
- ===  === ===  === ====== 
-
-Technology Consulting
-
-contact@ans.consulting
-
-
-
-`;
-
-// Help text
-const helpText = `help - This output
-ls - Lists files
-cat <filename> - Lists file contents
-cd <dir> - Enters directory
-contact - Prints contact information
-contact <key> - Open contact link
-clear - Clears the display
-`;
-
-// Contact texts
-const contactInfo = {
-  email: 'contact@alexnicita.com',
-  twitter: 'https://twitter.com/NicitaAlex'
-};
-const contactList = Object.keys(contactInfo).reduce((result, key) => result.concat([`${key} - ${contactInfo[key]}`]), []).join('\n');
-const contactText = `
-
-${contactList}
-
-Use ex. 'contact twitter' to open the links.
-`;
-const openContact = key => window.open(key === 'email' ? `mailto:${contactInfo[key]}` : contactInfo[key]);
-
-// File browser
-const browser = function () {
-  let current = '/';
-  let tree = [
-  // {
-  //   location: '/',
-  //   filename: 'documents',
-  //   type: 'directory'
-  // },
-  // {
-  //   location: '/',
-  //   filename: 'AUTHOR',
-  //   type: 'file',
-  //   content: 'Alex Nicita <contact@alexnicita.com>'
-  // }, 
-  {
-    location: '/',
-    filename: 'CLIENTS',
-    type: 'file',
-    content: `
-    
-    Select clients include:
-
-    Anchorage - anchorage.com
-    Polymarket - polymarket.com
-    Profound - tryprofound.com
-    Scimitar - scimitarfinance.com
-    NFG - networkforgooddaf.org
-    `
-  }];
-  const fix = str => str.trim().replace(/\/+/g, '/') || '/';
-  const setCurrent = dir => {
-    if (typeof dir !== 'undefined') {
-      if (dir == '..') {
-        const parts = current.split('/');
-        parts.pop();
-        current = fix(parts.join('/'));
-      } else {
-        const found = tree.filter(iter => iter.location === current).find(iter => iter.filename === fix(dir));
-        if (found) {
-          current = fix(current + '/' + dir);
-        } else {
-          return `Directory '${dir}' not found in '${current}'`;
-        }
-      }
-      return `Entered '${current}'`;
-    }
-    return current;
-  };
-  const ls = () => {
-    const found = tree.filter(iter => iter.location === current);
-    const fileCount = found.filter(iter => iter.type === 'file').length;
-    const directoryCount = found.filter(iter => iter.type === 'directory').length;
-    const status = `${fileCount} file(s), ${directoryCount} dir(s)`;
-    const maxlen = Math.max(...found.map(iter => iter.filename).map(n => n.length));
-    const list = found.map(iter => {
-      return `${iter.filename.padEnd(maxlen + 1, ' ')}`;
-    }).join('\n');
-    return `${list}\n\n${status} in ${current}`;
-  };
-  const cat = filename => {
-    const found = tree.filter(iter => iter.location === current);
-    const foundFile = found.find(iter => iter.filename === filename);
-    if (foundFile) {
-      return foundFile.content;
-    }
-    return `File '${filename}' not found in '${current}'`;
-  };
-  return {
-    cwd: () => setCurrent(),
-    pwd: () => setCurrent(),
-    cd: dir => setCurrent(fix(dir)),
-    cat,
-    ls
-  };
-}();
-
-///////////////////////////////////////////////////////////////////////////////
-// MAIN
-///////////////////////////////////////////////////////////////////////////////
-
-const load = () => {
-  // Create hidden input element
-  const hiddenInput = document.createElement('input');
-  hiddenInput.style.position = 'absolute';
-  hiddenInput.style.opacity = '0';
-  hiddenInput.style.height = '0';
-  hiddenInput.style.width = '0';
-  document.body.appendChild(hiddenInput);
-
-  // Add click event listener to document
-  document.addEventListener('click', () => {
-    hiddenInput.focus();
-  });
-  const t = Object(_src_terminal_js__WEBPACK_IMPORTED_MODULE_1__["terminal"])({
-    prompt: () => `$ ${browser.cwd()} > `,
-    banner,
-    commands: {
-      help: () => helpText,
-      cwd: () => browser.cwd(),
-      pwd: () => browser.cwd(),
-      cd: dir => browser.cd(dir),
-      ls: () => browser.ls(),
-      cat: file => browser.cat(file),
-      clear: () => t.clear(),
-      contact: key => {
-        if (key in contactInfo) {
-          openContact(key);
-          return `Opening ${key} - ${contactInfo[key]}`;
-        }
-        return contactText;
-      }
-    }
-  });
-};
-document.addEventListener('DOMContentLoaded', load);
-
-/***/ }),
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/styles.scss":
 /*!*************************!*\
   !*** ./src/styles.scss ***!
   \*************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+__webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
+
 
 /***/ }),
 
@@ -276,12 +18,12 @@ document.addEventListener('DOMContentLoaded', load);
 /*!*************************!*\
   !*** ./src/terminal.js ***!
   \*************************/
-/*! exports provided: terminal */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "terminal", function() { return terminal; });
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   terminal: () => (/* binding */ terminal)
+/* harmony export */ });
 // Creates initial options
 const createOptions = opts => Object.assign({}, {
   banner: 'Hello World',
@@ -459,19 +201,240 @@ const terminal = opts => {
   };
 };
 
-/***/ }),
-
-/***/ 0:
-/*!************************!*\
-  !*** multi ./index.js ***!
-  \************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(/*! /Users/utils/misc/ans/index.js */"./index.js");
-
-
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!******************!*\
+  !*** ./index.js ***!
+  \******************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _src_styles_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./src/styles.scss */ "./src/styles.scss");
+/* harmony import */ var _src_terminal_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./src/terminal.js */ "./src/terminal.js");
+
+
+
+// Banner text
+const banner = `
+
+ :::====  :::= === :::=== 
+ :::  === :::===== :::    
+ ======== ========  ===== 
+ ===  === === ====     ===
+ ===  === ===  === ====== 
+
+Technology Consulting
+
+contact@ans.consulting
+
+
+
+`;
+
+// Help text
+const helpText = `
+
+
+
+help - This output
+ls - Lists files
+cat <filename> - Lists file contents
+cd <dir> - Enters directory
+contact - Prints contact information
+contact <key> - Open contact link
+clear - Clears the display
+`;
+
+// Contact texts
+const contactInfo = {
+  email: 'contact@alexnicita.com',
+  twitter: 'https://twitter.com/NicitaAlex'
+};
+const contactList = Object.keys(contactInfo).reduce((result, key) => result.concat([`${key} - ${contactInfo[key]}`]), []).join('\n');
+const contactText = `
+
+${contactList}
+
+Use ex. 'contact twitter' to open the links.
+`;
+const openContact = key => window.open(key === 'email' ? `mailto:${contactInfo[key]}` : contactInfo[key]);
+
+// File browser
+const browser = function () {
+  let current = '/';
+  let tree = [
+  // {
+  //   location: '/',
+  //   filename: 'documents',
+  //   type: 'directory'
+  // },
+  // {
+  //   location: '/',
+  //   filename: 'AUTHOR',
+  //   type: 'file',
+  //   content: 'Alex Nicita <contact@alexnicita.com>'
+  // }, 
+  {
+    location: '/',
+    filename: 'CLIENTS',
+    type: 'file',
+    content: `
+    
+    Select clients include:
+
+    Whop - whop.com
+    Anchorage - anchorage.com
+    Polymarket - polymarket.com
+    Profound - tryprofound.com
+    Scimitar - scimitarfinance.com
+    NFG - networkforgooddaf.org
+    `
+  }];
+  const fix = str => str.trim().replace(/\/+/g, '/') || '/';
+  const setCurrent = dir => {
+    if (typeof dir !== 'undefined') {
+      if (dir == '..') {
+        const parts = current.split('/');
+        parts.pop();
+        current = fix(parts.join('/'));
+      } else {
+        const found = tree.filter(iter => iter.location === current).find(iter => iter.filename === fix(dir));
+        if (found) {
+          current = fix(current + '/' + dir);
+        } else {
+          return `Directory '${dir}' not found in '${current}'`;
+        }
+      }
+      return `Entered '${current}'`;
+    }
+    return current;
+  };
+  const ls = () => {
+    const found = tree.filter(iter => iter.location === current);
+    const fileCount = found.filter(iter => iter.type === 'file').length;
+    const directoryCount = found.filter(iter => iter.type === 'directory').length;
+    const status = `${fileCount} file(s), ${directoryCount} dir(s)`;
+    const maxlen = Math.max(...found.map(iter => iter.filename).map(n => n.length));
+    const list = found.map(iter => {
+      return `${iter.filename.padEnd(maxlen + 1, ' ')}`;
+    }).join('\n');
+    return `${list}\n\n${status} in ${current}`;
+  };
+  const cat = filename => {
+    const found = tree.filter(iter => iter.location === current);
+    const foundFile = found.find(iter => iter.filename === filename);
+    if (foundFile) {
+      return foundFile.content;
+    }
+    return `File '${filename}' not found in '${current}'`;
+  };
+  return {
+    cwd: () => setCurrent(),
+    pwd: () => setCurrent(),
+    cd: dir => setCurrent(fix(dir)),
+    cat,
+    ls
+  };
+}();
+
+///////////////////////////////////////////////////////////////////////////////
+// MAIN
+///////////////////////////////////////////////////////////////////////////////
+
+const load = () => {
+  // Create hidden input element
+  const hiddenInput = document.createElement('input');
+  hiddenInput.style.position = 'absolute';
+  hiddenInput.style.opacity = '0';
+  hiddenInput.style.height = '0';
+  hiddenInput.style.width = '0';
+  document.body.appendChild(hiddenInput);
+
+  // Add click event listener to document
+  document.addEventListener('click', () => {
+    hiddenInput.focus();
+  });
+  const t = (0,_src_terminal_js__WEBPACK_IMPORTED_MODULE_1__.terminal)({
+    prompt: () => `$ ${browser.cwd()} > `,
+    banner,
+    commands: {
+      help: () => helpText,
+      cwd: () => browser.cwd(),
+      pwd: () => browser.cwd(),
+      cd: dir => browser.cd(dir),
+      ls: () => browser.ls(),
+      cat: file => browser.cat(file),
+      clear: () => t.clear(),
+      contact: key => {
+        if (key in contactInfo) {
+          openContact(key);
+          return `Opening ${key} - ${contactInfo[key]}`;
+        }
+        return contactText;
+      }
+    }
+  });
+};
+document.addEventListener('DOMContentLoaded', load);
+})();
+
+/******/ })()
+;
 //# sourceMappingURL=main.js.map
