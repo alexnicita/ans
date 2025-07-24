@@ -1,3 +1,6 @@
+@use "sass:math";
+@use "variables" as *;
+
 body,
 html {
   width: 100%;
@@ -18,7 +21,7 @@ body {
   position: absolute;
   bottom: 0;
   right: 0;
-  padding: $base-unit / 2;
+  padding: math.div($base-unit, 2);
 }
 
 #ga {
