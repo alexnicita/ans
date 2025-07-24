@@ -230,7 +230,7 @@ body {
 @keyframes blur {
   50% {
     color: rgb(0, 228, 73.038961039);
-    text-shadow: 2px 0 2px rgba(255, 255, 255, 0.8);
+    text-shadow: 2px 0 2px hsla(120, 100%, 101.9607843137%, 0.8);
   }
 }
 @keyframes glow {
